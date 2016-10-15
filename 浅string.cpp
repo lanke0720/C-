@@ -31,11 +31,11 @@ public:
 			{
 				_pstr = t._pstr;
 			}
-8			return *this;
+			return *this;
 		}
 		~string()
 		{
-			if( NULL == _pstr)
+			if( NULL != _pstr)
 			{
 				delete[] _pstr;
 				_pstr = NULL;
