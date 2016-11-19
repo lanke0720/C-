@@ -1,0 +1,86 @@
+#include <iostream>
+using namespace std;
+
+class A
+{
+public:
+	int _a;
+	A():_a(10){}
+	virtual void f1()
+	{
+		cout<<"A::f1"<<endl;
+	}
+	virtual void f2()
+	{
+		cout<<"A::f2"<<endl;
+	}
+	virtual void f3()
+	{
+		cout<<"A::f3"<<endl;
+	}
+};
+
+class B : public A
+{
+public:
+	int _b;
+	B():_b(100){}
+	virtual void f1()
+	{
+		cout<<"B::f1"<<endl;
+	}
+	virtual void f2_b()
+	{
+		cout<<"B::f2"<<endl;
+	}
+	virtual void f3_b()
+	{
+		cout<<"B::f3"<<endl;
+	}
+};
+
+class C : public B
+{
+public:
+	int _c;
+	C():_c(1000){}
+	virtual void f1()
+	{
+		cout<<"C::f1"<<endl;
+	}
+	virtual void f2_c()
+	{
+		cout<<"C::f2"<<endl;
+	}
+	virtual void f3_c()
+	{
+		cout<<"C::f3"<<endl;
+	}
+};
+
+typedef void (*Vpf)();
+
+void PrintVft()
+{
+	C c;
+	cout<<"C::_vfptr:"<<endl;
+	Vpf* fun = (Vpf*)*(int*)&c;
+	while(*fun)
+	{
+		(*fun)();
+		fun++;
+	}
+}
+
+int main()
+{
+	A a;
+	B b;
+	C c;
+	cout<<sizeof(a)<<endl;
+	cout<<sizeof(b)<<endl;
+	cout<<sizeof(c)<<endl;
+	PrintVft();
+	return 0;
+}
+
